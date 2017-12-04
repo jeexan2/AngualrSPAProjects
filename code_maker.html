@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<body>
+
+<div ng-app="myApp" ng-controller="myCtrl">
+      <h4>Method Initializer Form</h4>
+      <div class="leftbar" style="width: 20%; float:left;border-style: solid;border-color: rgb(150, 149, 149);">
+            <form>
+                    Encapsulation: <select ng-model="encapsulation" style="width:40%"  ng-options="x for x in names">
+                        </select>
+            </form>
+            <form>
+                Static Type: <input type="checkbox" name="staticCheck" ng-model="staticCheck" ng-change="checkValue(static)">
+            </form>
+            <form>
+                    Type: <select ng-model="typeModel" style="width:50%"  ng-options="x for x in types">
+                        </select>
+            </form>
+            <form>
+                    MethodName:  <input type="text" style="width:40%" ng-model="methodName">
+            </form>
+            <form ng-submit="addParams()">
+                    Add Parameter: <br/>
+                    Variable Type:
+                    <select ng-model="param" style="width:40%;"  ng-options="x for x in vartypes">
+                        </select><br/>
+                    Variable Name:
+                    <input type="text" ng-model="varName" style="width:50%;" size="50" placeholder="Variable Name" ng-model-options="{ allowInvalid: false }">
+                    <input type="submit" value="Add Parameter of Method">
+                
+            </form>  
+     </div>
+     
+     <div class="rightTopbar" style="width: 78%;float:right;">
+        <h4>Method's Output in C#</h4>
+        <div class="rightbar" style="border-style: solid;border-color: rgb(99, 95, 93);">
+         {{encapsulation}} {{staticCheck == true ? "static": ""}} {{typeModel}} {{methodName}}(<span style="width:80%" ng-repeat="x in params">{{x}}</span></span>) {<br/>
+            <br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;//Code Goes here<br/>
+            <br/>
+            <div ng-if="typeModel != 'void'">
+
+            </div>
+            <div ng-if="typeModel == 'string'">
+                    &nbsp;&nbsp;&nbsp;&nbsp;string retString = "";<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;return retString;<br/>
+            </div>
+            <div ng-if="typeModel != 'string' && typeModel != 'void' && typeModel != ''">
+                    &nbsp;&nbsp;&nbsp;&nbsp;{{typeModel}} retVal = 0;<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;return retVal;<br/>
+            </div>
+       
+
+        }
+        </div>
+    </div>
+    
+      
+</div>
+
+<script>
+    
+    var app = angular.module('myApp', []);
+    app.controller('myCtrl', function($scope) {
+        $scope.checkValue = function(value){
+        if(value == 'on'){
+            staticCheck = true;
+        }
+        else 
+        staticCheck = false;
+        }
+        $scope.names = ["public", "private", "protected","internal"];
+        $scope.types = ["int", "double", "float","string","void"];
+        $scope.vartypes = ["int", "double", "float","string","bool"];
+        $scope.params = [];
+        $scope.cnt = 0;
+        $scope.addParams = function(){
+            if($scope.cnt > 0)
+                var appendto = ", ";
+            else appendto = " ";
+           if($scope.param != "") $scope.params.push(appendto+$scope.param+" "+$scope.varName);
+            $scope.param = "";
+            $scope.varName="";
+            $scope.cnt++;
+        }
+        $scope.comma = ",";
+    });
+    </script>
+
+</body>
+</html>
