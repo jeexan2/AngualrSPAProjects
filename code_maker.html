@@ -30,7 +30,10 @@
                     <input type="text" ng-model="varName" style="width:50%;" size="50" placeholder="Variable Name" ng-model-options="{ allowInvalid: false }">
                     <input type="submit" value="Add Parameter of Method">
                 
-            </form>  
+            </form>
+            <form>
+                Print Some Strings Code: <input type="text" style="width:40%" ng-model="printString">
+            </form>
      </div>
      
      <div class="rightTopbar" style="width: 78%;float:right;">
@@ -40,6 +43,9 @@
             <br/>
             &nbsp;&nbsp;&nbsp;&nbsp;//Code Goes here<br/>
             <br/>
+            <div ng-if="printString != null">
+                &nbsp;&nbsp;&nbsp;&nbsp;Console.WriteLine("{{printString}}");
+            </div>
             <div ng-if="typeModel != 'void'">
 
             </div>
@@ -51,7 +57,7 @@
                     &nbsp;&nbsp;&nbsp;&nbsp;{{typeModel}} retVal = 0;<br/>
                     &nbsp;&nbsp;&nbsp;&nbsp;return retVal;<br/>
             </div>
-       
+           
 
         }
         </div>
